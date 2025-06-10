@@ -55,7 +55,16 @@ auto B_PLUS_TREE_INTERNAL_PAGE_TYPE::ValueAt(int index) const -> ValueType {
   else
     return array[i].second;
 }
-
+INDEX_TEMPLATE_ARGUMENTS
+ValueType B_PLUS_TREE_INTERNAL_PAGE_TYPE::Lookup(const KeyType &key, const KeyComparator &comparator) const {//在内部节点中找到目标键 key 所属的子节点指针
+  for (int i = 1; i < GetSize(); i++) {
+    KeyType cur_key = array_[i].first;
+    if (comparator(key, cur_key) < 0) {
+      return array_[i - 1].second;
+    }
+  }
+  return array_[GetSize() - 1].second;
+}
 // valuetype for internalNode should be page id_t
 template class BPlusTreeInternalPage<GenericKey<4>, page_id_t, GenericComparator<4>>;
 template class BPlusTreeInternalPage<GenericKey<8>, page_id_t, GenericComparator<8>>;

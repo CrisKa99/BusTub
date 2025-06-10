@@ -78,6 +78,12 @@ class BPlusTree {
   // Remove a key and its value from this B+ tree.
   void Remove(const KeyType &key, Transaction *txn);
 
+  Page *BPLUSTREE_TYPE::FindLeafPage(const KeyType &key, bool leftMost);
+
+  void BPLUSTREE_TYPE::StartNewTree(const KeyType &key, const ValueType &value);
+
+  bool BPLUSTREE_TYPE::InsertIntoLeaf(const KeyType &key, const ValueType &value, Transaction *transaction);
+   
   // Return the value associated with a given key
   auto GetValue(const KeyType &key, std::vector<ValueType> *result, Transaction *txn = nullptr) -> bool;
 

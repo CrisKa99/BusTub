@@ -97,7 +97,8 @@ class BPlusTreeInternalPage : public BPlusTreePage {
 
     return kstr;
   }
-
+  ValueType Lookup(const KeyType &k, const KeyComparator &com) const;
+  
  private:
   // Flexible array member for page data.
   MappingType array_[0];
